@@ -1,23 +1,40 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import './App.css';
+import DataService from './services/dataService';
+
+const dataService = new DataService({key: 'check_later_items', default: []});
+
+type Item = {
+  action_type: 'watch' | 'read';
+  id: string;
+  name: string;
+}
+
+type SelectedTab = 'watch' | 'read';
+
+type Tab = {
+  label: string;
+  value: SelectedTab;
+}
 
 function App() {
-  const [items, setItems] = useState([
-    {id: guid(), name: 'Отцы и дети Тургенева', action_type: 'read'},
-    {id: guid(), name: 'Терминатор 2', action_type: 'watch'}
-  ]);
+  const [items, setItems] = useState<Item[]>(dataService.getAll());
 
   const [isEditorVisible, setIsEditorVisible] = useState(false);
   const [editorText, setEditorText] = useState('');
-  const [selectedTab, setSelectedTab] = useState('watch');
+  const [selectedTab, setSelectedTab] = useState<SelectedTab>('watch');
   const itemsFiltered = useMemo(() => {
     return items.filter((i) => i.action_type === selectedTab);
   }, [items, selectedTab]);
 
-  const tabs = [
+  const tabs: Tab[] = [
     { label: 'Посмотреть', value: 'watch' },
     { label: 'Почитать', value: 'read' },
   ];
+
+  useEffect(() => {
+    dataService.setAll(items);
+  }, [items]);
 
   return (
     <div>
