@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import './App.css';
+import { Intro } from './components/Intro/Intro';
 import { Tabs } from './components/Tabs/Tabs';
 import DataService from './services/dataService';
 
@@ -27,19 +28,15 @@ function App() {
 
   return (
     <div>
-      <div style={{ marginBottom: 10 }}>
-        Intro text is here
-      </div>
-      <div>
-        <Tabs
-          activeTab={selectedTab}
-          onSelect={(value) => setSelectedTab(value)}
-          tabs={[
-            { label: 'Посмотреть', value: 'watch' },
-            { label: 'Почитать', value: 'read' },
-          ]}
-        />
-      </div>
+      <Intro />
+      <Tabs
+        activeTab={selectedTab}
+        onSelect={(value) => setSelectedTab(value)}
+        tabs={[
+          { label: 'Посмотреть', value: 'watch' },
+          { label: 'Почитать', value: 'read' },
+        ]}
+      />
       <div>
         {itemsFiltered.map((i) => (<div style={{ display: 'inline-block', border: '1px solid black', margin: 10, padding: 5 }} key={i.id}>{i.name}</div>))}
       </div>
