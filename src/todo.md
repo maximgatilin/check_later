@@ -1,7 +1,7 @@
 # Todo items
 
 ## Features
-* Remember to local storage
+* Show number of items inside tabs
 * Read/wathced state
 * Localisation to russian
 * Kinopoisk api integration

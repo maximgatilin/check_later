@@ -1,20 +1,14 @@
 import { useState, useMemo, useEffect } from 'react';
 import './App.css';
+import { Tabs } from './components/Tabs/Tabs';
 import DataService from './services/dataService';
 
 const dataService = new DataService({key: 'check_later_items', default: []});
 
 type Item = {
-  action_type: 'watch' | 'read';
+  action_type: string;
   id: string;
   name: string;
-}
-
-type SelectedTab = 'watch' | 'read';
-
-type Tab = {
-  label: string;
-  value: SelectedTab;
 }
 
 function App() {
@@ -22,15 +16,10 @@ function App() {
 
   const [isEditorVisible, setIsEditorVisible] = useState(false);
   const [editorText, setEditorText] = useState('');
-  const [selectedTab, setSelectedTab] = useState<SelectedTab>('watch');
+  const [selectedTab, setSelectedTab] = useState<string>('watch');
   const itemsFiltered = useMemo(() => {
     return items.filter((i) => i.action_type === selectedTab);
   }, [items, selectedTab]);
-
-  const tabs: Tab[] = [
-    { label: 'Посмотреть', value: 'watch' },
-    { label: 'Почитать', value: 'read' },
-  ];
 
   useEffect(() => {
     dataService.setAll(items);
@@ -38,10 +27,18 @@ function App() {
 
   return (
     <div>
+      <div style={{ marginBottom: 10 }}>
+        Intro text is here
+      </div>
       <div>
-        {tabs.map(t => (
-          <button key={t.value} style={{ border: t.value === selectedTab ? '1px solid red' : undefined }} onClick={() => setSelectedTab(t.value)}>{t.label}</button>
-        ))}
+        <Tabs
+          activeTab={selectedTab}
+          onSelect={(value) => setSelectedTab(value)}
+          tabs={[
+            { label: 'Посмотреть', value: 'watch' },
+            { label: 'Почитать', value: 'read' },
+          ]}
+        />
       </div>
       <div>
         {itemsFiltered.map((i) => (<div style={{ display: 'inline-block', border: '1px solid black', margin: 10, padding: 5 }} key={i.id}>{i.name}</div>))}
