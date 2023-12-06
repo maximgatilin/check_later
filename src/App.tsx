@@ -1,19 +1,17 @@
 import { useState, useMemo, useEffect } from 'react';
 import './App.css';
+import { Card } from './components/Card/Card';
+import { CardList } from './components/CardList/CardList';
 import { Intro } from './components/Intro/Intro';
 import { Tabs } from './components/Tabs/Tabs';
+import { initialItems } from './mocks/initialItems';
 import DataService from './services/dataService';
+import { ContentEntity } from './utils/sharedTypes';
 
-const dataService = new DataService({key: 'check_later_items', default: []});
-
-type Item = {
-  action_type: string;
-  id: string;
-  name: string;
-}
+const dataService = new DataService({key: 'check_later_items', default: initialItems});
 
 function App() {
-  const [items, setItems] = useState<Item[]>(dataService.getAll());
+  const [items, setItems] = useState<ContentEntity[]>(dataService.getAll());
 
   const [isEditorVisible, setIsEditorVisible] = useState(false);
   const [editorText, setEditorText] = useState('');
@@ -37,9 +35,9 @@ function App() {
           { label: 'Почитать', value: 'read' },
         ]}
       />
-      <div>
-        {itemsFiltered.map((i) => (<div style={{ display: 'inline-block', border: '1px solid black', margin: 10, padding: 5 }} key={i.id}>{i.name}</div>))}
-      </div>
+      <CardList>
+        {itemsFiltered.map((i) => (<Card {...i} key={i.id} />))}
+      </CardList>
       <button onClick={() => {
         setIsEditorVisible(true);
       }}>Добавить</button>
