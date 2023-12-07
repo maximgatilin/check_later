@@ -1,7 +1,7 @@
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import * as S from './styles';
 
-export function CardList({ children }: PropsWithChildren): React.ReactElement{
+export function CardList({ children }: PropsWithChildren) {
   return (
     <S.Container>
       {children}

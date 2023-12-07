@@ -1,4 +1,3 @@
-import React from 'react';
 import * as S from './styles';
 
 type Tab = {
@@ -12,7 +11,7 @@ type TabsProps = {
   tabs: Tab[];
 };
 
-export function Tabs (props: TabsProps): React.ReactElement{
+export function Tabs (props: TabsProps) {
   const { activeTab, onSelect, tabs } = props;
 
   return (
