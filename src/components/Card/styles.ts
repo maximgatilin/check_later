@@ -16,4 +16,5 @@ export const Content = styled.div`
   padding: 10px 10px;
   background: #fffdfd;
   font-weight: 500;
+  line-height: 1.4;
 `;
