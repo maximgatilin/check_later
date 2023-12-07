@@ -47,7 +47,7 @@ function App() {
               if (e.key === 'Enter') {
                 setItems([
                   ...items,
-                  {id: guid(), name: editorText, action_type: selectedTab}
+                  {id: guid(), name: editorText, action_type: selectedTab === 'watch' ? 'watch' : 'read'}
                 ]);
                 setEditorText('');
                 setIsEditorVisible(false);

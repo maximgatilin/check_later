@@ -1,5 +1,5 @@
 export interface ContentEntity {
-  action_type: string;
+  action_type: 'watch' | 'read';
   id: string;
   name: string;
   image?: string;
