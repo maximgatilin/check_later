@@ -10,6 +10,7 @@
 * animations if necessary
 * Accessibility
 * Responsiveness
+* Ask user which style is preferred for images, this way we actually tell about image generation feature
 
 ## Code quality
 * Improve kandinsky integration code - now it smells

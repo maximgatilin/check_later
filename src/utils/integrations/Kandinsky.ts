@@ -73,29 +73,25 @@ class Kandinsky {
     });
   }
 
-  async generateImage (prompt: string) {
+  async getImageById(id: string): Promise<string> {
+    const headers = this.generateAuthHeaders();
+    const requestOptions = {
+      method: 'GET',
+      headers,
+    };
+    const response = await fetch(`${this.baseUrl}/text2image/status/${id}`, requestOptions).then(res => res.json());
+    if (response.status === 'DONE') {
+      return Promise.resolve(`data:image/png;base64, ${response.images[0]}`);
+    } else {
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      return this.getImageById(id)
+    }
+  }
+
+  async generateImage (prompt: string): Promise<string> {
     const imageMetaData = await this.requestImageGeneration(prompt);
     const imageId = imageMetaData.data.uuid;
-    const headers = this.generateAuthHeaders();
-
-    // todo refactor code here
-    const maxAttempts = 10;
-    for (let i = 0; i < maxAttempts; i++) {
-      try {
-        const requestOptions = {
-          method: 'GET',
-          headers,
-        };
-        const response = await fetch(`${this.baseUrl}/text2image/status/${imageId}`, requestOptions)
-          .then(response => response.json());
-          if (response.status === 'DONE') {
-            return `data:image/png;base64, ${response.images[0]}`;
-          }
-          await new Promise(resolve => setTimeout(resolve, 3000));
-      } catch (error) {
-        console.error(error);
-      }
-    }
+    return this.getImageById(imageId);
   }
 }
 
