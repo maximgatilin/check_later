@@ -15,6 +15,7 @@ function App() {
     selectedTab,
     setSelectedTab,
     addContentItem,
+    imageGenerationIdsInProgress,
    } = useContent();
 
   return (
@@ -29,7 +30,13 @@ function App() {
         ]}
       />
       <CardList>
-        {filteredItems.map((i) => (<Card {...i} key={i.id} />))}
+        {filteredItems.map((i) => (
+          <Card
+            {...i}
+            key={i.id}
+            isImageGenerationInProgress={imageGenerationIdsInProgress[i.id] === true}
+          />
+        ))}
       </CardList>
       <button onClick={() => {
         setIsEditorVisible(true);

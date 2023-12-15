@@ -1,10 +1,9 @@
 # Todo items
 
 ## Features
-* Loading state for kandinsky integration
-* Sort items by created at
 * Show number of items inside tabs
 * Mark as done and show in separate tabs
+* Dark theme support(use from system)
 
 ## UI/UX
 * elegant styling

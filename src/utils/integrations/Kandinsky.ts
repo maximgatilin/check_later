@@ -90,7 +90,7 @@ class Kandinsky {
           if (response.status === 'DONE') {
             return `data:image/png;base64, ${response.images[0]}`;
           }
-          await new Promise(resolve => setTimeout(resolve, 5000));
+          await new Promise(resolve => setTimeout(resolve, 3000));
       } catch (error) {
         console.error(error);
       }

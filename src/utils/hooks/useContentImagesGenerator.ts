@@ -2,13 +2,13 @@ import { useState, useCallback } from "react";
 import Kandinsky from "../integrations/Kandinsky";
 import { ContentEntity } from "../sharedTypes"
 
-type IdsProgress = {
+export type IdsProgressType = {
   [key: string]: boolean;
 }
 
 type HookOutput = {
   generateContentImage: (item: ContentEntity) => Promise<ContentEntity>;
-  idsInProgress: IdsProgress;
+  idsInProgress: IdsProgressType;
 }
 
 const imageApi = new Kandinsky({
@@ -19,13 +19,17 @@ const imageApi = new Kandinsky({
 imageApi.init();
 
 export default function useContentImagesGenerator(): HookOutput {
-  const [idsInProgress, setIdsInProgress] = useState<IdsProgress>({});
+  const [idsInProgress, setIdsInProgress] = useState<IdsProgressType>({});
   const generateContentImage = useCallback(async (item: ContentEntity): Promise<ContentEntity> => {
     setIdsInProgress({
       ...idsInProgress,
       [item.id]: true
     });
     const image = await imageApi.generateImage(item.name);
+    setIdsInProgress({
+      ...idsInProgress,
+      [item.id]: false,
+    });
     return {
       ...item,
       image,

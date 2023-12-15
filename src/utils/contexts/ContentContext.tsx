@@ -12,7 +12,7 @@ import {
 import { initialItems } from '../../mocks/initialItems';
 import DataService from '../../services/dataService';
 import generateRandomId from '../functions/generateRandomId';
-import useContentImagesGenerator from '../hooks/useContentImagesGenerator';
+import useContentImagesGenerator, { IdsProgressType } from '../hooks/useContentImagesGenerator';
 import { ContentEntity } from '../sharedTypes';
 
 type NewContentItem = Pick<ContentEntity, 'name' | 'action_type'>
@@ -23,6 +23,7 @@ interface ContentContextType {
   setSelectedTab: Dispatch<SetStateAction<string>>;
   filteredItems: ContentEntity[];
   addContentItem: (newContentItem: NewContentItem) => string;
+  imageGenerationIdsInProgress: IdsProgressType;
 }
 
 const ContentContext = createContext<ContentContextType | undefined>(undefined);
@@ -53,7 +54,7 @@ export function ContentProvider({ children }: ThemeProviderProps) {
   }, [items]);
   
 
-  const { generateContentImage } = useContentImagesGenerator();
+  const { generateContentImage, idsInProgress } = useContentImagesGenerator();
 
   const addContentItem = useCallback(({ name, action_type }: NewContentItem) => {
     const id = generateRandomId();
@@ -85,6 +86,7 @@ export function ContentProvider({ children }: ThemeProviderProps) {
         selectedTab,
         setSelectedTab,
         addContentItem,
+        imageGenerationIdsInProgress: idsInProgress,
       }}
     >
       {children}
