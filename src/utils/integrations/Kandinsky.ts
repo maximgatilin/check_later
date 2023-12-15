@@ -10,6 +10,7 @@ type GenerationRequestAPIResponse = {
 class Kandinsky {
   private apiKey;
   private apiSecret;
+  private baseUrl = "https://api-key.fusionbrain.ai/key/api/v1";
   public modelId: string | null;
 
   constructor({ apiKey, apiSecret }: { apiKey: string, apiSecret: string }) {
@@ -22,30 +23,34 @@ class Kandinsky {
     this.modelId = await this.getModelId();
   }
 
+  generateAuthHeaders() {
+    const headers = new Headers();
+    headers.append("X-Key", `Key ${this.apiKey}`);
+    headers.append("X-Secret", `Secret ${this.apiSecret}`);
+    return headers;
+  }
+
   async getModelId () {
     if (this.modelId) {
       return this.modelId;
     }
-    const headers = new Headers();
-    headers.append("X-Key", `Key ${this.apiKey}`);
-    headers.append("X-Secret", `Secret ${this.apiSecret}`);
+    const headers = this.generateAuthHeaders();
 
     const requestOptions = {
       method: 'GET',
-      headers: headers,
+      headers,
     };
 
-    const response = await fetch("https://api-key.fusionbrain.ai/key/api/v1/models", requestOptions).then(response => response.json());
+    const response = await fetch(`${this.baseUrl}/models`, requestOptions).then(response => response.json());
     return response[0].id;
   }
 
-  async generateImage (prompt: string) {
+  async requestImageGeneration(prompt: string): Promise<GenerationRequestAPIResponse> {
+    // here we're using axios lib because it doesn't work with native fetch API
+    // native fetch API has issues with constructing blobs for multipart/form-data
     const modelId = await this.getModelId();
-    const headers = new Headers();
-    // todo move headers generation to the internal method
-    headers.append("X-Key", `Key ${this.apiKey}`);
-    headers.append("X-Secret", `Secret ${this.apiSecret}`);
-    headers.append("Content-Type", "multipart/form-data");
+    const headers = Object.fromEntries(this.generateAuthHeaders());
+
     const params = {
       "type": "GENERATE",
       "width": 256,
@@ -55,38 +60,34 @@ class Kandinsky {
         "query": prompt
       }
     }
-
-    const dto_object = new Blob([JSON.stringify(params)], {type: 'application/json'})
-    const modelIdData = { value: modelId, options: { contentType: undefined }};
-
+    const paramsAsBlob = new Blob([JSON.stringify(params)], {type: 'application/json'});
     const formdata = new FormData();
-    formdata.append("model_id", modelIdData.value);
-    formdata.append("params", dto_object);
+    formdata.append("model_id", modelId);
+    formdata.append("params", paramsAsBlob);
 
-    // todo url should be also a variable
-    // todo get rid of axios and just use fetch api
-    const generationRequest: GenerationRequestAPIResponse = await axios.post("https://api-key.fusionbrain.ai/key/api/v1/text2image/run", formdata, {
+    return axios.post(`${this.baseUrl}/text2image/run`, formdata, {
       headers: {
-        "X-Key": `Key ${this.apiKey}`,
-        "X-Secret": `Secret ${this.apiSecret}`,
+        ...headers,
         "Content-Type": 'multipart/form-data',
       },
     });
-    const generationRequestId = generationRequest.data.uuid;
+  }
+
+  async generateImage (prompt: string) {
+    const imageMetaData = await this.requestImageGeneration(prompt);
+    const imageId = imageMetaData.data.uuid;
+    const headers = this.generateAuthHeaders();
 
     // todo refactor code here
     const maxAttempts = 10;
     for (let i = 0; i < maxAttempts; i++) {
       try {
-        const headers = new Headers();
-        headers.append("X-Key", `Key ${this.apiKey}`);
-        headers.append("X-Secret", `Secret ${this.apiSecret}`);
-
         const requestOptions = {
           method: 'GET',
           headers,
         };
-        const response = await fetch(`https://api-key.fusionbrain.ai/key/api/v1/text2image/status/${generationRequestId}`, requestOptions).then(response => response.json())
+        const response = await fetch(`${this.baseUrl}/text2image/status/${imageId}`, requestOptions)
+          .then(response => response.json());
           if (response.status === 'DONE') {
             return `data:image/png;base64, ${response.images[0]}`;
           }
