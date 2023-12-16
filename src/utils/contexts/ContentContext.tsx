@@ -36,13 +36,13 @@ export function useContent() {
   return context;
 }
 
-interface ThemeProviderProps {
+interface ContentProviderProps {
   children: ReactNode;
 }
 
 const dataService = new DataService({key: 'check_later_items', default: initialItems});
 
-export function ContentProvider({ children }: ThemeProviderProps) {
+export function ContentProvider({ children }: ContentProviderProps) {
   const [items, setItems] = useState<ContentEntity[]>(dataService.getAll());
   const [selectedTab, setSelectedTab] = useState<string>('watch');
   const filteredItems = useMemo(() => {
