@@ -7,7 +7,7 @@ const theme = {
     accent: "#70A1FF",
     outline: "#E8E8E8",
   },
-}
+};
 
 const Theme = (props: PropsWithChildren) => (
   <ThemeProvider theme={theme}>{props.children}</ThemeProvider>

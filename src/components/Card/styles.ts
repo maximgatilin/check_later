@@ -23,7 +23,7 @@ export const Content = styled.div`
 const pulse = keyframes`
   from { transform: scale(0.9); }
   to { transform: scale(1.1); }
-`
+`;
 
 export const LoaderWrapper = styled.div`
   position: absolute;

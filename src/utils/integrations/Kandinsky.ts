@@ -59,7 +59,7 @@ class Kandinsky {
       "generateParams": {
         "query": prompt
       }
-    }
+    };
     const paramsAsBlob = new Blob([JSON.stringify(params)], {type: 'application/json'});
     const formdata = new FormData();
     formdata.append("model_id", modelId);
@@ -84,7 +84,7 @@ class Kandinsky {
       return Promise.resolve(`data:image/png;base64, ${response.images[0]}`);
     } else {
       await new Promise(resolve => setTimeout(resolve, 3000));
-      return this.getImageById(id)
+      return this.getImageById(id);
     }
   }
 

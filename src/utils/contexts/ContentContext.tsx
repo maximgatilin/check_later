@@ -70,7 +70,7 @@ export function ContentProvider({ children }: ContentProviderProps) {
       setItems(prevState => prevState.map(item => {
         return updatedItem.id === item.id ? updatedItem : item;
       }));
-    }
+    };
 
     generateImage();
 

@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import Kandinsky from "../integrations/Kandinsky";
-import { ContentEntity } from "../sharedTypes"
+import { ContentEntity } from "../sharedTypes";
 
 export type IdsProgressType = {
   [key: string]: boolean;
@@ -34,10 +34,10 @@ export default function useContentImagesGenerator(): HookOutput {
       ...item,
       image,
     };
-  }, [idsInProgress, setIdsInProgress])
+  }, [idsInProgress, setIdsInProgress]);
 
   return {
     generateContentImage,
     idsInProgress,
-  }
+  };
 }
