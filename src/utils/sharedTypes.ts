@@ -1,5 +1,7 @@
+export type ActionType = 'watch' | 'read';
+
 export interface ContentEntity {
-  action_type: 'watch' | 'read';
+  actionType: ActionType;
   id: string;
   name: string;
   image?: string;

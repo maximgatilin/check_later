@@ -13,9 +13,9 @@ import { initialItems } from '../../mocks/initialItems';
 import DataService from '../../services/dataService';
 import generateRandomId from '../functions/generateRandomId';
 import useContentImagesGenerator, { IdsProgressType } from '../hooks/useContentImagesGenerator';
-import { ContentEntity } from '../sharedTypes';
+import { ActionType, ContentEntity } from '../sharedTypes';
 
-type NewContentItem = Pick<ContentEntity, 'name' | 'action_type'>
+type NewContentItem = Pick<ContentEntity, 'name'>
 
 interface ContentContextType {
   allItems: ContentEntity[];
@@ -46,7 +46,7 @@ export function ContentProvider({ children }: ThemeProviderProps) {
   const [items, setItems] = useState<ContentEntity[]>(dataService.getAll());
   const [selectedTab, setSelectedTab] = useState<string>('watch');
   const filteredItems = useMemo(() => {
-      return items.filter((i) => i.action_type === selectedTab);
+      return items.filter((i) => i.actionType === selectedTab);
     }, [items, selectedTab]);
 
   useEffect(() => {
@@ -56,17 +56,16 @@ export function ContentProvider({ children }: ThemeProviderProps) {
 
   const { generateContentImage, idsInProgress } = useContentImagesGenerator();
 
-  const addContentItem = useCallback(({ name, action_type }: NewContentItem) => {
+  const addContentItem = useCallback(({ name }: NewContentItem) => {
     const id = generateRandomId();
-    const newItem = {id, name, action_type };
+    const actionType = selectedTab as ActionType;
+    const newItem = {id, name, actionType };
     setItems([
       ...items,
       newItem,
     ]);
 
     const generateImage = async () => {
-      // todo instead of passing entire item, we pass id and text and wait for result
-      // once result is available - we try to update necessary item via map through all items
       const updatedItem = await generateContentImage(newItem);
       setItems(prevState => prevState.map(item => {
         return updatedItem.id === item.id ? updatedItem : item;
@@ -76,7 +75,7 @@ export function ContentProvider({ children }: ThemeProviderProps) {
     generateImage();
 
     return id;
-  }, [items, setItems, generateContentImage]);
+  }, [items, setItems, generateContentImage, selectedTab]);
 
   return (
     <ContentContext.Provider

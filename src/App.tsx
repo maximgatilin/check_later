@@ -47,7 +47,6 @@ function App() {
               if (e.key === 'Enter') {
                 addContentItem({
                   name: editorText,
-                  action_type: selectedTab === 'watch' ? 'watch' : 'read'
                 });
                 setEditorText('');
                 setIsEditorVisible(false);

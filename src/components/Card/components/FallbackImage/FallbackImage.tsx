@@ -3,15 +3,15 @@ import * as S from './styles';
 import { ReactComponent as BookIcon } from '../../../../icons/book.svg';
 import { ReactComponent as VideoIcon } from '../../../../icons/video.svg';
 
-type Props = Pick<ContentEntity, 'action_type'>
+type Props = Pick<ContentEntity, 'actionType'>
 
-export default function FallbackImage({ action_type } : Props) {
+export default function FallbackImage({ actionType } : Props) {
   return (
     <S.Container>
-      {action_type === 'watch' && (
+      {actionType === 'watch' && (
         <VideoIcon />
       )}
-      {action_type === 'read' && (
+      {actionType === 'read' && (
         <BookIcon />
       )}
     </S.Container>
