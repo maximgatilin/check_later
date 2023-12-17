@@ -9,18 +9,11 @@
 * elegant styling
 * animations if necessary
 * Accessibility
-* Responsiveness
+* Responsiveness, maybe use css grid layout
 * Ask user which style is preferred for images, this way we actually tell about image generation feature
 
 ## Code quality
-* Improve kandinsky integration code - now it smells
-* get rid of axios and form-data packages if possible
-* Introduce state management if necessary(redux tools or reatom)
-* Good components structure
-* Good TS models
-* CSS property sorted correctly
-* Only interfaces are used for TS prop types
-* Enhance eslint with additional typescript rules
+* Only interfaces are used for TS prop types and types if necessary
 * Handle errors correclty
 
 ## Deployment
