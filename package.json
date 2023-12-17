@@ -11,6 +11,8 @@
     "@types/react": "^18.2.39",
     "@types/react-dom": "^18.2.17",
     "axios": "^1.6.2",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.1.0",
     "form-data": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -30,7 +32,24 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "airbnb",
+      "airbnb-typescript",
+      "plugin:import/typescript",
+      "plugin:react/jsx-runtime"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "plugins": [
+      "react",
+      "@typescript-eslint"
     ],
     "rules": {
       "semi": "error"
