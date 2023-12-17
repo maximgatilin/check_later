@@ -1,10 +1,11 @@
 type DataServiceInput = {
   key: string;
   default: any;
-}
+};
 
 class DataService {
   key: string;
+
   default: any;
 
   constructor(input: DataServiceInput) {

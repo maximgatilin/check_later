@@ -7,15 +7,15 @@ import {
   useContext,
   ReactNode,
   Dispatch,
-  SetStateAction
+  SetStateAction,
 } from 'react';
-import { initialItems } from '../../mocks/initialItems';
+import initialItems from '../../mocks/initialItems';
 import DataService from '../../services/dataService';
 import generateRandomId from '../functions/generateRandomId';
 import useContentImagesGenerator, { IdsProgressType } from '../hooks/useContentImagesGenerator';
 import { ActionType, ContentEntity } from '../sharedTypes';
 
-type NewContentItem = Pick<ContentEntity, 'name'>
+type NewContentItem = Pick<ContentEntity, 'name'>;
 
 interface ContentContextType {
   allItems: ContentEntity[];
@@ -40,26 +40,26 @@ interface ContentProviderProps {
   children: ReactNode;
 }
 
-const dataService = new DataService({key: 'check_later_items', default: initialItems});
+const dataService = new DataService({ key: 'check_later_items', default: initialItems });
 
 export function ContentProvider({ children }: ContentProviderProps) {
   const [items, setItems] = useState<ContentEntity[]>(dataService.getAll());
   const [selectedTab, setSelectedTab] = useState<string>('watch');
-  const filteredItems = useMemo(() => {
-      return items.filter((i) => i.actionType === selectedTab);
-    }, [items, selectedTab]);
+  const filteredItems = useMemo(
+    () => items.filter((i) => i.actionType === selectedTab),
+    [items, selectedTab],
+  );
 
   useEffect(() => {
     dataService.setAll(items);
   }, [items]);
-  
 
   const { generateContentImage, idsInProgress } = useContentImagesGenerator();
 
   const addContentItem = useCallback(({ name }: NewContentItem) => {
     const id = generateRandomId();
     const actionType = selectedTab as ActionType;
-    const newItem = {id, name, actionType };
+    const newItem = { id, name, actionType };
     setItems([
       ...items,
       newItem,
@@ -67,9 +67,9 @@ export function ContentProvider({ children }: ContentProviderProps) {
 
     const generateImage = async () => {
       const updatedItem = await generateContentImage(newItem);
-      setItems(prevState => prevState.map(item => {
-        return updatedItem.id === item.id ? updatedItem : item;
-      }));
+      setItems(
+        (prevState) => prevState.map((item) => (updatedItem.id === item.id ? updatedItem : item)),
+      );
     };
 
     generateImage();
@@ -77,16 +77,25 @@ export function ContentProvider({ children }: ContentProviderProps) {
     return id;
   }, [items, setItems, generateContentImage, selectedTab]);
 
+  const contextValue = useMemo(() => ({
+    allItems: items,
+    filteredItems,
+    selectedTab,
+    setSelectedTab,
+    addContentItem,
+    imageGenerationIdsInProgress: idsInProgress,
+  }), [
+    items,
+    filteredItems,
+    selectedTab,
+    setSelectedTab,
+    addContentItem,
+    idsInProgress,
+  ]);
+
   return (
     <ContentContext.Provider
-      value={{
-        allItems: items,
-        filteredItems,
-        selectedTab,
-        setSelectedTab,
-        addContentItem,
-        imageGenerationIdsInProgress: idsInProgress,
-      }}
+      value={contextValue}
     >
       {children}
     </ContentContext.Provider>

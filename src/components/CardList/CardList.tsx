@@ -1,10 +1,16 @@
 import { PropsWithChildren } from 'react';
-import * as S from './styles';
+import styled from 'styled-components';
 
-export function CardList({ children }: PropsWithChildren) {
+export const Container = styled.div`
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+`;
+
+export default function CardList({ children }: PropsWithChildren) {
   return (
-    <S.Container>
+    <Container>
       {children}
-    </S.Container>
+    </Container>
   );
 }

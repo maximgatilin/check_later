@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 export const Container = styled.div`
   display: flex;
   justify-content: center;
-  border-bottom: 2px solid ${props => props.theme.colors.outline};
+  border-bottom: 2px solid ${(props) => props.theme.colors.outline};
   padding: 0 20px;
   font-size: 16px;
   font-weight: 500;

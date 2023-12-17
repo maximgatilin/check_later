@@ -11,7 +11,7 @@ type TabsProps = {
   tabs: Tab[];
 };
 
-export function Tabs (props: TabsProps) {
+export default function Tabs(props: TabsProps) {
   const { activeTab, onSelect, tabs } = props;
 
   return (

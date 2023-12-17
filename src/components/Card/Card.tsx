@@ -7,7 +7,9 @@ interface CardProps extends ContentEntity {
   isImageGenerationInProgress: boolean;
 }
 
-export function Card({ image, name, actionType, isImageGenerationInProgress } : CardProps) {
+export default function Card({
+  image, name, actionType, isImageGenerationInProgress,
+} : CardProps) {
   return (
     <S.Container>
       {image ? <S.Image src={image} /> : <FallbackImage actionType={actionType} />}

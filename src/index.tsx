@@ -6,7 +6,7 @@ import Theme from './utils/theme';
 import { ContentProvider } from './utils/contexts/ContentContext';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById('root') as HTMLElement,
 );
 
 root.render(
@@ -16,5 +16,5 @@ root.render(
         <App />
       </ContentProvider>
     </Theme>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

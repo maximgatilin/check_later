@@ -5,12 +5,15 @@ type GenerationRequestAPIResponse = {
     status: string,
     uuid: string,
   }
-}
+};
 
 class Kandinsky {
   private apiKey;
+
   private apiSecret;
-  private baseUrl = "https://api-key.fusionbrain.ai/key/api/v1";
+
+  private baseUrl = 'https://api-key.fusionbrain.ai/key/api/v1';
+
   public modelId: string | null;
 
   constructor({ apiKey, apiSecret }: { apiKey: string, apiSecret: string }) {
@@ -19,18 +22,18 @@ class Kandinsky {
     this.modelId = null;
   }
 
-  async init () {
+  async init() {
     this.modelId = await this.getModelId();
   }
 
   generateAuthHeaders() {
     const headers = new Headers();
-    headers.append("X-Key", `Key ${this.apiKey}`);
-    headers.append("X-Secret", `Secret ${this.apiSecret}`);
+    headers.append('X-Key', `Key ${this.apiKey}`);
+    headers.append('X-Secret', `Secret ${this.apiSecret}`);
     return headers;
   }
 
-  async getModelId () {
+  async getModelId() {
     if (this.modelId) {
       return this.modelId;
     }
@@ -41,7 +44,7 @@ class Kandinsky {
       headers,
     };
 
-    const response = await fetch(`${this.baseUrl}/models`, requestOptions).then(response => response.json());
+    const response = await fetch(`${this.baseUrl}/models`, requestOptions).then((res) => res.json());
     return response[0].id;
   }
 
@@ -52,23 +55,23 @@ class Kandinsky {
     const headers = Object.fromEntries(this.generateAuthHeaders());
 
     const params = {
-      "type": "GENERATE",
-      "width": 256,
-      "style": "KANDINSKY",
-      "height": 256,
-      "generateParams": {
-        "query": prompt
-      }
+      type: 'GENERATE',
+      width: 256,
+      style: 'KANDINSKY',
+      height: 256,
+      generateParams: {
+        query: prompt,
+      },
     };
-    const paramsAsBlob = new Blob([JSON.stringify(params)], {type: 'application/json'});
+    const paramsAsBlob = new Blob([JSON.stringify(params)], { type: 'application/json' });
     const formdata = new FormData();
-    formdata.append("model_id", modelId);
-    formdata.append("params", paramsAsBlob);
+    formdata.append('model_id', modelId);
+    formdata.append('params', paramsAsBlob);
 
     return axios.post(`${this.baseUrl}/text2image/run`, formdata, {
       headers: {
         ...headers,
-        "Content-Type": 'multipart/form-data',
+        'Content-Type': 'multipart/form-data',
       },
     });
   }
@@ -79,16 +82,17 @@ class Kandinsky {
       method: 'GET',
       headers,
     };
-    const response = await fetch(`${this.baseUrl}/text2image/status/${id}`, requestOptions).then(res => res.json());
+    const response = await fetch(`${this.baseUrl}/text2image/status/${id}`, requestOptions).then((res) => res.json());
     if (response.status === 'DONE') {
       return Promise.resolve(`data:image/png;base64, ${response.images[0]}`);
-    } else {
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      return this.getImageById(id);
     }
+    await new Promise((resolve) => {
+      setTimeout(resolve, 3000);
+    });
+    return this.getImageById(id);
   }
 
-  async generateImage (prompt: string): Promise<string> {
+  async generateImage(prompt: string): Promise<string> {
     const imageMetaData = await this.requestImageGeneration(prompt);
     const imageId = imageMetaData.data.uuid;
     return this.getImageById(imageId);
