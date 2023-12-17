@@ -5,11 +5,11 @@ type Tab = {
   value: string;
 };
 
-type TabsProps = {
+interface TabsProps {
   activeTab: string;
   onSelect: (value: string) => void;
   tabs: Tab[];
-};
+}
 
 export default function Tabs(props: TabsProps) {
   const { activeTab, onSelect, tabs } = props;
