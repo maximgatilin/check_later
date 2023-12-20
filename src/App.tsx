@@ -1,15 +1,13 @@
-import { useState } from 'react';
 import './App.css';
+import AddItem from './components/AddItem/AddItem';
 import Card from './components/Card/Card';
 import CardList from './components/CardList/CardList';
 import { Intro } from './components/Intro/Intro';
 import Tabs from './components/Tabs/Tabs';
 import { useContent } from './utils/contexts/ContentContext';
+import { ActionType } from './utils/sharedTypes';
 
 function App() {
-  const [isEditorVisible, setIsEditorVisible] = useState(false);
-  const [editorText, setEditorText] = useState('');
-
   const {
     filteredItems,
     selectedTab,
@@ -40,36 +38,11 @@ function App() {
             isImageGenerationInProgress={imageGenerationIdsInProgress[i.id] === true}
           />
         ))}
+        <AddItem
+          onAdd={addContentItem}
+          actionType={selectedTab as ActionType}
+        />
       </CardList>
-      <button
-        type="button"
-        onClick={() => {
-          setIsEditorVisible(true);
-        }}
-      >
-        Добавить
-      </button>
-      {isEditorVisible && (
-        <div style={{
-          display: 'inline-block', border: '1px solid black', margin: 10, padding: 5,
-        }}
-        >
-          <input
-            type="text"
-            value={editorText}
-            onChange={(e) => setEditorText(e.target.value)}
-            onKeyUp={(e) => {
-              if (e.key === 'Enter') {
-                addContentItem({
-                  name: editorText,
-                });
-                setEditorText('');
-                setIsEditorVisible(false);
-              }
-            }}
-          />
-        </div>
-      )}
     </div>
   );
 }

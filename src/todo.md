@@ -1,20 +1,21 @@
 # Todo items
 
 ## Features
-* Show number of items inside tabs
-* Mark as done and show in separate tabs
 * Dark theme support(use from system)
-
-## UI/UX
-* elegant styling
-* animations if necessary
-* Accessibility
-* Responsiveness, maybe use css grid layout
+* Show number of items inside tabs(after redux implementation)
+* Make possible to remove items(after redux implementation)
 * Ask user which style is preferred for images, this way we actually tell about image generation feature
 
+## UI/UX
+* Responsiveness, maybe use css grid layout
+* Try to make api faster
+
 ## Code quality
-* Only interfaces are used for TS prop types and types if necessary
+* Use redux(with toolkit probably) instead of context
 * Handle errors correclty
+
+## Bugs
+* When added both items loading is messy(check after redux implementation)
 
 ## Deployment
 * Deploy using github actions
