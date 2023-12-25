@@ -1,7 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
-  width: 230px;
   position: relative;
   border-radius: 12px;
   overflow: hidden;

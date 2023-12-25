@@ -7,7 +7,6 @@
 * Ask user which style is preferred for images, this way we actually tell about image generation feature
 
 ## UI/UX
-* Responsiveness, maybe use css grid layout
 * Try to make api faster
 
 ## Code quality

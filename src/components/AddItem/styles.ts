@@ -5,9 +5,9 @@ interface ContainerProps {
 }
 
 export const Container = styled.div<ContainerProps>`
-  width: 230px;
   position: relative;
   overflow: hidden;
+  min-height: 200px;
   border-radius: 12px;
   box-shadow: ${({ theme, $isEditing }) => ($isEditing ? theme.shadows.card : 'none')};
   transition: .15s ease;
