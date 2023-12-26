@@ -4,7 +4,7 @@ export const Container = styled.div`
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: ${({ theme }) => theme.shadows.card},
+  box-shadow: ${({ theme }) => theme.shadows.card};
 `;
 
 export const Image = styled.img`
@@ -17,6 +17,11 @@ export const Content = styled.div`
   background: #fffdfd;
   font-weight: 500;
   line-height: 1.4;
+  color: black;
+  @media (prefers-color-scheme: dark) {
+    background: #576574;
+    color: #ff9f43;
+  };
 `;
 
 const pulse = keyframes`

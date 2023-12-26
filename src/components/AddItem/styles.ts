@@ -47,6 +47,11 @@ export const AddButton = styled.button<AddButtonProps>`
   &:hover {
     color: #716b6b;
   }
+
+  @media (prefers-color-scheme: dark) {
+    background: transparent;
+    color: #fff;
+  };
 `;
 
 interface InputBoxProps {
@@ -63,4 +68,12 @@ export const InputBox = styled.textarea<InputBoxProps>`
   padding: 10px;
   opacity: ${({ $visible }) => ($visible ? 1 : 0)};
   line-height: 1.5;
+  @media (prefers-color-scheme: dark) {
+    background: #576574;
+    color: #fff;
+
+    &::placeholder {
+      color: #c8d6e5;
+    }
+  };
 `;

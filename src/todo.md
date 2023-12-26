@@ -2,9 +2,10 @@
 
 ## Features
 * Dark theme support(use from system)
-* Show number of items inside tabs(after redux implementation)
 * Make possible to remove items(after redux implementation)
+* Show number of items inside tabs(after redux implementation)
 * Ask user which style is preferred for images, this way we actually tell about image generation feature
+* Use css variables, so it's easier to switch dark mode
 
 ## UI/UX
 * Try to make api faster

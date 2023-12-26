@@ -7,6 +7,10 @@ export const Container = styled.div`
   padding: 0 20px;
   font-size: 16px;
   font-weight: 500;
+
+  @media (prefers-color-scheme: dark) {
+    border-bottom: 2px solid #ff9f43;
+  };
 `;
 
 export interface ITab {
@@ -18,6 +22,9 @@ export const Tab = styled.div<ITab>`
   cursor: pointer;
   position: relative;
   ${({ $active, theme }) => css`
+      @media (prefers-color-scheme: dark) {
+        color: ${$active ? '#ee5253' : 'unset'};
+      };
       &:before {
         content: '';
         position: absolute;
@@ -28,6 +35,10 @@ export const Tab = styled.div<ITab>`
         background: ${theme.colors.accent};
         opacity: ${$active ? 1 : 0};
         transition: .3s ease;
+
+        @media (prefers-color-scheme: dark) {
+          background: #ee5253;
+        };
       }
     `};
 `;
