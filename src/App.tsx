@@ -4,24 +4,25 @@ import Card from './components/Card/Card';
 import CardList from './components/CardList/CardList';
 import { Intro } from './components/Intro/Intro';
 import Tabs from './components/Tabs/Tabs';
-import { useContent } from './utils/contexts/ContentContext';
+import {
+  contentItemsFiltered, selectedTab, switchTab, addItem,
+} from './store/content.slice';
+import { useAppSelector, useAppDispatch } from './store/hooks';
+import { generateImage } from './store/imageGeneration.slice';
+import generateRandomId from './utils/functions/generateRandomId';
 import { ActionType } from './utils/sharedTypes';
 
 function App() {
-  const {
-    filteredItems,
-    selectedTab,
-    setSelectedTab,
-    addContentItem,
-    imageGenerationIdsInProgress,
-  } = useContent();
+  const filteredItems = useAppSelector(contentItemsFiltered);
+  const tab = useAppSelector(selectedTab);
+  const dispatch = useAppDispatch();
 
   return (
     <div>
       <Intro />
       <Tabs
-        activeTab={selectedTab}
-        onSelect={(value: string) => setSelectedTab(value)}
+        activeTab={tab}
+        onSelect={(value: string) => dispatch(switchTab(value))}
         tabs={[
           { label: 'Посмотреть', value: 'watch' },
           { label: 'Почитать', value: 'read' },
@@ -35,12 +36,18 @@ function App() {
             name={i.name}
             image={i.image}
             key={i.id}
-            isImageGenerationInProgress={imageGenerationIdsInProgress[i.id] === true}
+            isImageGenerationInProgress={i.isImageGenerationInProgress}
           />
         ))}
         <AddItem
-          onAdd={addContentItem}
-          actionType={selectedTab as ActionType}
+          onAdd={(data) => {
+            const id = generateRandomId();
+            const actionType = tab as ActionType;
+            const newItem = { id, name: data.name, actionType };
+            dispatch(addItem(newItem));
+            dispatch(generateImage(newItem));
+          }}
+          actionType={tab as ActionType}
         />
       </CardList>
     </div>

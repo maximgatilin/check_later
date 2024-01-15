@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import { Provider } from 'react-redux';
 import App from './App';
 import Theme from './utils/theme';
-import { ContentProvider } from './utils/contexts/ContentContext';
+import { store } from './store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -11,10 +12,10 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <Theme>
-      <ContentProvider>
+    <Provider store={store}>
+      <Theme>
         <App />
-      </ContentProvider>
-    </Theme>
+      </Theme>
+    </Provider>
   </React.StrictMode>,
 );
