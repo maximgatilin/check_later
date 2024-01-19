@@ -1,6 +1,6 @@
 type DataServiceInput = {
   key: string;
-  default: any;
+  default?: any;
 };
 
 class DataService {

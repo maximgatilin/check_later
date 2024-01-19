@@ -1,10 +1,40 @@
 import styled, { keyframes } from 'styled-components';
+import { ReactComponent as CloseIcon } from '../../icons/close.svg';
+
+export const DeleteButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  width: 28px;
+  height: 28px;
+  padding-top: 3px;
+  background: #ffffff80;
+  border-radius: 100%;
+  cursor: pointer;
+  opacity: 0;
+  transition: .3s ease;
+
+  &:hover {
+    background: #fff;
+  }
+`;
+
+export const DeleteIcon = styled(CloseIcon)`
+  width: 15px;
+`;
 
 export const Container = styled.div`
   position: relative;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: ${({ theme }) => theme.shadows.card};
+
+  &:hover {
+    ${DeleteButton} {
+      opacity: 1;
+    }
+  }
 `;
 
 export const Image = styled.img`

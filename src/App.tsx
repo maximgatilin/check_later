@@ -5,7 +5,7 @@ import CardList from './components/CardList/CardList';
 import { Intro } from './components/Intro/Intro';
 import Tabs from './components/Tabs/Tabs';
 import {
-  contentItemsFiltered, selectedTab, switchTab, addItem,
+  contentItemsFiltered, selectedTab, switchTab, addItem, removeItem,
 } from './store/content.slice';
 import { useAppSelector, useAppDispatch } from './store/hooks';
 import { generateImage } from './store/imageGeneration.slice';
@@ -37,6 +37,7 @@ function App() {
             image={i.image}
             key={i.id}
             isImageGenerationInProgress={i.isImageGenerationInProgress}
+            onDelete={(id) => dispatch(removeItem(id))}
           />
         ))}
         <AddItem

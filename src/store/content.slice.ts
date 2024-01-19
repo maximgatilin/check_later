@@ -26,7 +26,9 @@ export const contentSlice = createSlice({
     },
     addItem: (state, action: PayloadAction<ContentEntity>) => {
       state.items.push(action.payload);
-      dataService.setAll(state.items);
+    },
+    removeItem: (state, action: PayloadAction<string>) => {
+      state.items = state.items.filter((item) => item.id !== action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -41,7 +43,7 @@ export const contentSlice = createSlice({
 
 });
 
-export const { switchTab, addItem } = contentSlice.actions;
+export const { switchTab, addItem, removeItem } = contentSlice.actions;
 
 export const contentItemsFiltered = createSelector([
   (state: RootState) => state.content.items,

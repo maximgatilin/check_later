@@ -5,13 +5,17 @@ import { ReactComponent as LoadingIcon } from '../../icons/party.svg';
 
 interface CardProps extends ContentEntity {
   isImageGenerationInProgress: boolean;
+  onDelete: (id: string) => void;
 }
 
 export default function Card({
-  image, name, actionType, isImageGenerationInProgress,
+  id, image, name, actionType, isImageGenerationInProgress, onDelete,
 } : CardProps) {
   return (
     <S.Container>
+      <S.DeleteButton onClick={() => onDelete(id)}>
+        <S.DeleteIcon />
+      </S.DeleteButton>
       {image ? <S.Image src={image} /> : <FallbackImage actionType={actionType} />}
       {isImageGenerationInProgress && (
         <S.LoaderWrapper>
