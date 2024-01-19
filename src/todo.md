@@ -1,8 +1,6 @@
 # Todo items
 
 ## Features
-* Make possible to remove items(after redux implementation)
-  * Use middlewares to sync redux vs local storage
 * Show number of items inside tabs(after redux implementation)(v2)
 * Ask user which style is preferred for images, this way we actually tell about image generation feature(v2)
 * Use css variables, so it's easier to switch dark mode(v2)
