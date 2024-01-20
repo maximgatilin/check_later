@@ -7,6 +7,7 @@
 
 ## UI/UX
 * Try to speed up API, maybe via changing some parameters(v2)
+* Show link to github in the UI
 
 ## Code quality
 
@@ -14,6 +15,5 @@
 * When added both items loading is messy(check after redux implementation)(v2)
 
 ## Deployment
-* Deploy using github actions
 * Store api keys in github env variables
-* Proper readme
+* Proper readme with link to the deployed app
