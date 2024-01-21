@@ -12,8 +12,8 @@ type HookOutput = {
 };
 
 const imageApi = new Kandinsky({
-  apiKey: '10A9F5AEC38A9AFE37DCD88C1456966C',
-  apiSecret: '87549F254C4DCD29ECEAF595CB25866A',
+  apiKey: process.env.REACT_APP_KANDINSKY_API_KEY,
+  apiSecret: process.env.REACT_APP_KANDINSKY_API_SECRET,
 });
 
 imageApi.init();

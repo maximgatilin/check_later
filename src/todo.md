@@ -6,6 +6,7 @@
 * Use css variables, so it's easier to switch dark mode(v2)
 
 ## UI/UX
+* Show loading on the left
 * Try to speed up API, maybe via changing some parameters(v2)
 * Show link to github in the UI
 

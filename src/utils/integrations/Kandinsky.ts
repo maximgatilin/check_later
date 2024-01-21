@@ -16,7 +16,10 @@ class Kandinsky {
 
   public modelId: string | null;
 
-  constructor({ apiKey, apiSecret }: { apiKey: string, apiSecret: string }) {
+  constructor({ apiKey, apiSecret }: { apiKey?: string, apiSecret?: string }) {
+    if (!apiKey || !apiSecret) {
+      throw new Error('Kandinsky must be initialised with api key and secret');
+    }
     this.apiKey = apiKey;
     this.apiSecret = apiSecret;
     this.modelId = null;
