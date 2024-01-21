@@ -16,5 +16,4 @@
 * When added both items loading is messy(check after redux implementation)(v2)
 
 ## Deployment
-* Store api keys in github env variables
 * Proper readme with link to the deployed app
