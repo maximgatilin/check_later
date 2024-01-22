@@ -61,8 +61,10 @@ const pulse = keyframes`
 
 export const LoaderWrapper = styled.div`
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 50%;
+  left: 50%;
+  margin-top: -17px;
+  margin-left: -17px;
   width: 35px;
   animation: ${pulse} .75s infinite ease-in-out alternate;
 `;

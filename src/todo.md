@@ -1,19 +1,16 @@
 # Todo items
 
+## V1 Remaining
+* Show link to github in the UI
+* Proper readme with link to the deployed app
+
 ## Features
 * Show number of items inside tabs(after redux implementation)(v2)
 * Ask user which style is preferred for images, this way we actually tell about image generation feature(v2)
 * Use css variables, so it's easier to switch dark mode(v2)
 
 ## UI/UX
-* Show loading on the left
 * Try to speed up API, maybe via changing some parameters(v2)
-* Show link to github in the UI
-
-## Code quality
 
 ## Bugs
 * When added both items loading is messy(check after redux implementation)(v2)
-
-## Deployment
-* Proper readme with link to the deployed app
