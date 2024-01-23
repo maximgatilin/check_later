@@ -71,7 +71,8 @@
       "@typescript-eslint"
     ],
     "rules": {
-      "semi": "error"
+      "semi": "error",
+      "import/prefer-default-export": "off"
     }
   },
   "browserslist": {

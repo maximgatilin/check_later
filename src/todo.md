@@ -1,7 +1,7 @@
 # Todo items
 
 ## V1 Remaining
-* Show link to github in the UI
+* Favicon & title
 * Proper readme with link to the deployed app
 
 ## Features
