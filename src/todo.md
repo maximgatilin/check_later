@@ -1,7 +1,6 @@
 # Todo items
 
 ## V1 Remaining
-* Favicon & title
 * Proper readme with link to the deployed app
 
 ## Features
