@@ -1,3 +1,18 @@
+Репозиторий проекта [CheckLater](https://maximgatilin.github.io/check_later/). 
+
+
+# Зачем
+Часто у нас нет времени посмотреть какой-то фильм или прочитать книгу, но мы хотим сделать это как-нибудь потом. В приложении пользователь может добавлять такие идеи на полку, а нейросеть Kandinsky сгенерирует интересную обложку. Это просто концепт, а не готовое приложение, данные сохраняются в браузере(local storage).
+
+# Стек
+* Typescript
+* React(create-react-app)
+* Redux(redux-toolkit)
+* styled-components
+* Local Storage для данных
+
+Так как проект сгенерирован на create-react-app, ниже находится его readme
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
