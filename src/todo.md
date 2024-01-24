@@ -1,8 +1,5 @@
 # Todo items
 
-## V1 Remaining
-* Proper readme with link to the deployed app
-
 ## Features
 * Show number of items inside tabs(after redux implementation)(v2)
 * Ask user which style is preferred for images, this way we actually tell about image generation feature(v2)
